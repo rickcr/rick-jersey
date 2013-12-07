@@ -1,6 +1,7 @@
 package net.learntechnology;
 
 import net.learntechnology.domain.Person;
+import org.junit.Assert;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,6 +23,7 @@ public class PersonTest {
 		Person person = client.target("http://localhost:8080/rick-jersey/rest/persons/2")
 			.request(MediaType.APPLICATION_XML_TYPE).get(Person.class);
 		logger.debug("Person: {}", person);
+		Assert.assertEquals(new Integer(2), person.getId());
 	}
 
 	@Test
@@ -36,6 +38,7 @@ public class PersonTest {
 		//	.request(MediaType.APPLICATION_XML_TYPE).post(Entity.entity(person, MediaType.APPLICATION_XML), Person.class);
 		logger.debug("response code: {}", response.getStatus());
 		logger.debug("Person: {}", person);
+		Assert.assertEquals(new Integer(3), person.getId());
 	}
 
 	@Test
@@ -44,6 +47,7 @@ public class PersonTest {
 		List<Person> persons = client.target("http://localhost:8080/rick-jersey/rest/persons")
 					.request(MediaType.APPLICATION_XML_TYPE).get(new GenericType<List<Person>>(){});
 		logger.debug("persons = {}",persons);
+		Assert.assertTrue(persons.size() > 0);
 	}
 
 }
